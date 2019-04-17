@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "alpine_version": "3.9"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "alpine:{{ user `alpine_version` }}",
+      "commit": true,
+      "changes": [
+        "EXPOSE 69/udp",
+        "CMD dnsmasq --no-daemon --dhcp-range=192.168.50.59,proxy"
+      ],
+      "run_command": ["--link=apk-cache:dl-cdn.alpinelinux.org", "-d", "-i", "-t", "{{.Image}}", "/bin/sh"]
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "pxe/",
+      "destination": "/tftpboot"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "apk add --update --no-cache dnsmasq wget"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "etc/",
+      "destination": "/etc"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "533451065487.dkr.ecr.us-east-1.amazonaws.com/aadl/ubuntu-pxe",
+        "tag": "latest"
+      }
+    ]
+  ]
+}

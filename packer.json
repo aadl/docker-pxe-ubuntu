@@ -1,6 +1,6 @@
 {
   "variables": {
-    "alpine_version": "3.9"
+    "alpine_version": "3.10"
   },
   "builders": [
     {
@@ -37,7 +37,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "533451065487.dkr.ecr.us-east-1.amazonaws.com/aadl/ubuntu-pxe",
+        "repository": "docker.pkg.github.com/aadl/docker-pxe-ubuntu/pxe",
         "tag": "latest"
       }
     ]

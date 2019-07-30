@@ -1,7 +1,7 @@
 default vesamenu.c32
 
 prompt 0
-timeout 50
+timeout 3
 
 menu background splash.png
 menu color title    * #FFFFFFFF *
@@ -17,7 +17,7 @@ menu hshift 13
 menu width 49
 menu margin 8
 
-menu title AADL Station Bootup
+menu title AADL Station Legacy BIOS
 
 label local
     menu default
